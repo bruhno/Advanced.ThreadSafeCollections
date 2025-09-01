@@ -1,9 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.13.35806.99 d17.13
+VisualStudioVersion = 17.13.35806.99
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Task3.BlockingCollection", "Task3.BlockingCollection\Task3.BlockingCollection.csproj", "{3F89780D-731C-46D8-8BA1-AF0CFF02547B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Task3.ConcurrentBag", "Task3.ConcurrentBag\Task3.ConcurrentBag.csproj", "{C9B5B911-313F-4DDF-84F0-9F76E0BE4467}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{3F89780D-731C-46D8-8BA1-AF0CFF02547B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3F89780D-731C-46D8-8BA1-AF0CFF02547B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3F89780D-731C-46D8-8BA1-AF0CFF02547B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C9B5B911-313F-4DDF-84F0-9F76E0BE4467}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C9B5B911-313F-4DDF-84F0-9F76E0BE4467}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C9B5B911-313F-4DDF-84F0-9F76E0BE4467}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C9B5B911-313F-4DDF-84F0-9F76E0BE4467}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
