@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Task3.BlockingCollection", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Task3.ConcurrentBag", "Task3.ConcurrentBag\Task3.ConcurrentBag.csproj", "{C9B5B911-313F-4DDF-84F0-9F76E0BE4467}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Task3.ConcurrentQueue", "Task3.ConcurrentQueue\Task3.ConcurrentQueue.csproj", "{A72A1635-29E7-4E65-85BB-2DB6C2BB9CDF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{C9B5B911-313F-4DDF-84F0-9F76E0BE4467}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C9B5B911-313F-4DDF-84F0-9F76E0BE4467}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C9B5B911-313F-4DDF-84F0-9F76E0BE4467}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A72A1635-29E7-4E65-85BB-2DB6C2BB9CDF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A72A1635-29E7-4E65-85BB-2DB6C2BB9CDF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A72A1635-29E7-4E65-85BB-2DB6C2BB9CDF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A72A1635-29E7-4E65-85BB-2DB6C2BB9CDF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
