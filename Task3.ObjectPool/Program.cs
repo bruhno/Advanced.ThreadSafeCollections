@@ -3,7 +3,7 @@ using System.Data;
 
 var random = new Random();
 
-var pool = new ConnectionPool();
+using var pool = new ConnectionPool();
 
 Task.WaitAll(Enumerable.Range(1, 1000).Select(Process));
 
@@ -16,7 +16,7 @@ foreach (var c in pool.Connections)
 
 async Task Process(int num)
 {
-    var delay = random.Next(num * 50);
+    var delay = random.Next(num * 10);
 
     await Task.Delay(delay);
 
@@ -25,12 +25,23 @@ async Task Process(int num)
     c.SomeProcess();
 }
 
-public class ConnectionPool
+public interface IConnection: IDisposable
+{
+    int UseCount { get; }
+
+    public int Number { get; }
+
+    public void SomeProcess();
+}
+
+public class ConnectionPool:IDisposable
 {
     public IEnumerable<IConnection> Connections => _connections.ToList();
 
     public IConnection GetConnection()
     {
+        if (disposedValue) throw new InvalidOperationException();
+
         if (!_connections.TryTake(out var cc))
         {
             cc = new CoreConnection();
@@ -41,20 +52,51 @@ public class ConnectionPool
 
     public void Add(CoreConnection connection)
     {
+        if (disposedValue) throw new InvalidOperationException();
+
         _connections.Add(connection);
     }
 
     private ConcurrentBag<CoreConnection> _connections = new();
+
+    #region dispose pattern
+    private bool disposedValue;
+
+    protected virtual void Dispose(bool disposing)
+    {
+        if (!disposedValue)
+        {
+            if (disposing)
+            {
+                // TODO: dispose managed state (managed objects)
+                foreach (var c in _connections)
+                {
+                    c.Dispose();
+                }
+            }
+
+            // TODO: free unmanaged resources (unmanaged objects) and override finalizer
+            // TODO: set large fields to null
+            disposedValue = true;
+        }
+    }
+
+    // // TODO: override finalizer only if 'Dispose(bool disposing)' has code to free unmanaged resources
+    // ~ConnectionPool()
+    // {
+    //     // Do not change this code. Put cleanup code in 'Dispose(bool disposing)' method
+    //     Dispose(disposing: false);
+    // }
+
+    public void Dispose()
+    {
+        // Do not change this code. Put cleanup code in 'Dispose(bool disposing)' method
+        Dispose(disposing: true);
+        GC.SuppressFinalize(this);
+    }
+    #endregion
 }
 
-public interface IConnection:IDisposable
-{
-    int UseCount { get; }
-
-    public int Number { get; }
-
-    public void SomeProcess();
-}
 
 public sealed class Connection: IConnection, IDisposable
 {
@@ -76,6 +118,8 @@ public sealed class Connection: IConnection, IDisposable
     {
         _connectionPool.Add(CoreConnection);
     }
+
+    private readonly ConnectionPool _connectionPool;
 
     #region dispose pattern
     private void Dispose(bool disposing)
@@ -110,8 +154,6 @@ public sealed class Connection: IConnection, IDisposable
 
     private bool _disposedValue;
     #endregion
-    
-    private readonly ConnectionPool _connectionPool;
 }
 
 public class CoreConnection:IConnection
@@ -127,13 +169,43 @@ public class CoreConnection:IConnection
 
     public void SomeProcess()
     {
+        if (disposedValue) throw new InvalidOperationException();
+
         UseCount++;
     }
 
-    public void Dispose()
+    private static int _numberSequence = 0;
+
+    #region dispose pattern
+    private bool disposedValue;
+
+    protected virtual void Dispose(bool disposing)
     {
-        // a demo connection, do nothing
+        if (!disposedValue)
+        {
+            if (disposing)
+            {
+                // TODO: dispose managed state (managed objects)
+            }
+
+            // TODO: free unmanaged resources (unmanaged objects) and override finalizer
+            // TODO: set large fields to null
+            disposedValue = true;
+        }
     }
 
-    private static int _numberSequence = 0;
+    // // TODO: override finalizer only if 'Dispose(bool disposing)' has code to free unmanaged resources
+    // ~CoreConnection()
+    // {
+    //     // Do not change this code. Put cleanup code in 'Dispose(bool disposing)' method
+    //     Dispose(disposing: false);
+    // }
+
+    public void Dispose()
+    {
+        // Do not change this code. Put cleanup code in 'Dispose(bool disposing)' method
+        Dispose(disposing: true);
+        GC.SuppressFinalize(this);
+    }
+    #endregion
 }
